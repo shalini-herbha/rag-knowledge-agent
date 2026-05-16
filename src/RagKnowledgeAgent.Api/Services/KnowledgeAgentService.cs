@@ -19,7 +19,8 @@ public class KnowledgeAgentService : IKnowledgeAgentService
         {
             return new AskQuestionResponse(
                 Answer: "I could not find any relevant knowledge source to answer this question.",
-                Sources: []
+                Sources: [],
+                Status: "NoRelevantKnowledgeFound"
             );
         }
 
@@ -27,7 +28,8 @@ public class KnowledgeAgentService : IKnowledgeAgentService
 
         return new AskQuestionResponse(
             Answer: answer,
-            Sources: retrievedKnowledge.Sources
+            Sources: retrievedKnowledge.Sources,
+            Status: "AnsweredFromRetrievedKnowledge"
         );
     }
 
