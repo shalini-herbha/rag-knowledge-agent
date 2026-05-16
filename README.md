@@ -51,6 +51,66 @@ rag-knowledge-agent/
 └── README.md
 ```
 
+## Run Locally
+
+### Prerequisites
+
+- .NET 10 SDK
+- VS Code or Visual Studio
+- Git
+
+### Start the API
+
+From the repository root:
+
+```powershell
+cd src/RagKnowledgeAgent.Api
+dotnet run
+```
+
+The API will start on a local port such as:
+
+```text
+http://localhost:5004
+```
+
+### Test the `/ask` endpoint
+
+Open Scalar API Reference in the browser:
+
+```text
+http://localhost:5004/scalar/v1
+```
+
+Then test:
+
+```http
+POST /ask
+```
+
+Example request:
+
+```json
+{
+  "question": "What should I check if search results are not loading?"
+}
+```
+
+Example response:
+
+```json
+{
+  "answer": "Based on the sample runbook, you should first confirm the API is reachable, check whether the search service is returning errors, review recent deployment changes, and inspect logs for timeout or validation errors.",
+  "sources": [
+    "samples/documents/sample-runbook.md"
+  ]
+}
+```
+
+### Current behaviour
+
+The `/ask` endpoint currently returns a hardcoded response based on the sample runbook. Future versions will replace this with retrieval from Azure AI Search and grounded answer generation using Azure OpenAI / Azure AI Foundry.
+
 ## Documentation
 
 - [Architecture](docs/architecture.md)
