@@ -1,9 +1,12 @@
 using RagKnowledgeAgent.Api.Models;
+using RagKnowledgeAgent.Api.Services;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
+
+builder.Services.AddScoped<IKnowledgeAgentService, KnowledgeAgentService>();
 
 var app = builder.Build();
 
@@ -13,7 +16,7 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
-app.MapPost("/ask", (AskQuestionRequest request) =>
+app.MapPost("/ask", (AskQuestionRequest request, IKnowledgeAgentService knowledgeAgentService) =>
 {
     if (string.IsNullOrWhiteSpace(request.Question))
     {
@@ -23,13 +26,7 @@ app.MapPost("/ask", (AskQuestionRequest request) =>
         });
     }
 
-    var response = new AskQuestionResponse(
-        Answer: "Based on the sample runbook, you should first confirm the API is reachable, check whether the search service is returning errors, review recent deployment changes, and inspect logs for timeout or validation errors.",
-        Sources:
-        [
-            "samples/documents/sample-runbook.md"
-        ]
-    );
+    var response = knowledgeAgentService.AskQuestion(request);
 
     return Results.Ok(response);
 });
