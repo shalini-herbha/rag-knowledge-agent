@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<IKnowledgeAgentService, KnowledgeAgentService>();
+builder.Services.AddScoped<IKnowledgeRetrievalService, LocalFileKnowledgeRetrievalService>();
 
 var app = builder.Build();
 
@@ -16,7 +17,7 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
-app.MapPost("/ask", (AskQuestionRequest request, IKnowledgeAgentService knowledgeAgentService) =>
+app.MapPost("/ask", async (AskQuestionRequest request, IKnowledgeAgentService knowledgeAgentService) =>
 {
     if (string.IsNullOrWhiteSpace(request.Question))
     {
@@ -26,7 +27,7 @@ app.MapPost("/ask", (AskQuestionRequest request, IKnowledgeAgentService knowledg
         });
     }
 
-    var response = knowledgeAgentService.AskQuestion(request);
+    var response = await knowledgeAgentService.AskQuestionAsync(request);
 
     return Results.Ok(response);
 });

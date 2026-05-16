@@ -4,5 +4,5 @@ namespace RagKnowledgeAgent.Api.Services;
 
 public interface IKnowledgeAgentService
 {
-    AskQuestionResponse AskQuestion(AskQuestionRequest request);
+    Task<AskQuestionResponse> AskQuestionAsync(AskQuestionRequest request);
 }
