@@ -36,6 +36,27 @@ The agent uses a RAG-style architecture:
 - Sample documents for local testing
 - Simple frontend or API testing instructions
 
+## Repository Structure
+
+```text
+rag-knowledge-agent/
+├── docs/
+│   ├── architecture.md
+│   └── roadmap.md
+├── samples/
+│   └── documents/
+│       └── sample-runbook.md
+├── .gitignore
+├── LICENSE
+└── README.md
+```
+
+## Documentation
+
+- [Architecture](docs/architecture.md)
+- [Roadmap](docs/roadmap.md)
+- [Sample Runbook](samples/documents/sample-runbook.md)
+
 ## Architecture
 
 ```text
