@@ -23,9 +23,21 @@ public class KnowledgeAgentService : IKnowledgeAgentService
             );
         }
 
+        var answer = BuildAnswerFromRetrievedKnowledge(retrievedKnowledge.Content);
+
         return new AskQuestionResponse(
-            Answer: "Based on the sample runbook, you should first confirm the API is reachable, check whether the search service is returning errors, review recent deployment changes, and inspect logs for timeout or validation errors.",
+            Answer: answer,
             Sources: retrievedKnowledge.Sources
         );
+    }
+
+    private static string BuildAnswerFromRetrievedKnowledge(string content)
+    {
+        if (content.Contains("Initial Checks", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Based on the sample runbook, start by confirming the API is reachable, checking whether the search service is returning errors, reviewing recent deployment changes, and inspecting logs for timeout or validation errors.";
+        }
+
+        return "I found a relevant knowledge source, but could not extract a specific answer from it yet.";
     }
 }
