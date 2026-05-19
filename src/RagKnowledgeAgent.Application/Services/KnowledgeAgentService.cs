@@ -40,6 +40,6 @@ public class KnowledgeAgentService : IKnowledgeAgentService
             return "Based on the sample runbook, start by confirming the API is reachable, checking whether the search service is returning errors, reviewing recent deployment changes, and inspecting logs for timeout or validation errors.";
         }
 
-        return "I found a relevant knowledge source, but could not extract a specific answer from it yet.";
+        return $"I found relevant knowledge sources. Retrieved context preview: {content[..Math.Min(content.Length, 500)]}";
     }
 }
