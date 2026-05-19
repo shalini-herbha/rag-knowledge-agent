@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/RagKnowledgeAgent.Api/RagKnowledgeAgent.Api.csproj" />
+    <Project Path="src/RagKnowledgeAgent.Application/RagKnowledgeAgent.Application.csproj" />
+    <Project Path="src/RagKnowledgeAgent.Infrastructure/RagKnowledgeAgent.Infrastructure.csproj" />
+  </Folder>
+</Solution>

@@ -5,10 +5,14 @@ namespace RagKnowledgeAgent.Application.Services;
 public class KnowledgeAgentService : IKnowledgeAgentService
 {
     private readonly IKnowledgeRetrievalService _knowledgeRetrievalService;
+    private readonly IAnswerGenerationService _answerGenerationService;
 
-    public KnowledgeAgentService(IKnowledgeRetrievalService knowledgeRetrievalService)
+    public KnowledgeAgentService(
+        IKnowledgeRetrievalService knowledgeRetrievalService,
+        IAnswerGenerationService answerGenerationService)
     {
         _knowledgeRetrievalService = knowledgeRetrievalService;
+        _answerGenerationService = answerGenerationService;
     }
 
     public async Task<AskQuestionResponse> AskQuestionAsync(AskQuestionRequest request)
@@ -19,27 +23,19 @@ public class KnowledgeAgentService : IKnowledgeAgentService
         {
             return new AskQuestionResponse(
                 Answer: "I could not find any relevant knowledge source to answer this question.",
-                Sources: Array.Empty<string>(),
+                Sources: [],
                 Status: "NoRelevantKnowledgeFound"
             );
         }
 
-        var answer = BuildAnswerFromRetrievedKnowledge(retrievedKnowledge.Content);
+        var answer = await _answerGenerationService.GenerateAnswerAsync(
+            request.Question,
+            retrievedKnowledge.Content);
 
         return new AskQuestionResponse(
             Answer: answer,
             Sources: retrievedKnowledge.Sources,
             Status: "AnsweredFromRetrievedKnowledge"
         );
-    }
-
-    private static string BuildAnswerFromRetrievedKnowledge(string content)
-    {
-        if (content.Contains("Initial Checks", StringComparison.OrdinalIgnoreCase))
-        {
-            return "Based on the sample runbook, start by confirming the API is reachable, checking whether the search service is returning errors, reviewing recent deployment changes, and inspecting logs for timeout or validation errors.";
-        }
-
-        return $"I found relevant knowledge sources. Retrieved context preview: {content[..Math.Min(content.Length, 500)]}";
     }
 }
