@@ -1,4 +1,4 @@
-namespace RagKnowledgeAgent.Api.Services;
+namespace RagKnowledgeAgent.Application.Services;
 
 public interface IKnowledgeRetrievalService
 {

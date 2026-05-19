@@ -1,6 +1,6 @@
-using RagKnowledgeAgent.Api.Models;
+using RagKnowledgeAgent.Application.Models;
 
-namespace RagKnowledgeAgent.Api.Services;
+namespace RagKnowledgeAgent.Application.Services;
 
 public interface IKnowledgeAgentService
 {

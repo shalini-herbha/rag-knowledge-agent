@@ -1,6 +1,6 @@
-using RagKnowledgeAgent.Api.Models;
+using RagKnowledgeAgent.Application.Models;
 
-namespace RagKnowledgeAgent.Api.Services;
+namespace RagKnowledgeAgent.Application.Services;
 
 public class KnowledgeAgentService : IKnowledgeAgentService
 {
@@ -19,7 +19,7 @@ public class KnowledgeAgentService : IKnowledgeAgentService
         {
             return new AskQuestionResponse(
                 Answer: "I could not find any relevant knowledge source to answer this question.",
-                Sources: [],
+                Sources: Array.Empty<string>(),
                 Status: "NoRelevantKnowledgeFound"
             );
         }

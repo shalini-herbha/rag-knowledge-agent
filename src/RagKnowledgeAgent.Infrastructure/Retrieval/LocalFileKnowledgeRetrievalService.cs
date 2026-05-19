@@ -1,10 +1,13 @@
-namespace RagKnowledgeAgent.Api.Services;
+using Microsoft.Extensions.Hosting;
+using RagKnowledgeAgent.Application.Services;
+
+namespace RagKnowledgeAgent.Infrastructure.Retrieval;
 
 public class LocalFileKnowledgeRetrievalService : IKnowledgeRetrievalService
 {
-    private readonly IWebHostEnvironment _environment;
+    private readonly IHostEnvironment _environment;
 
-    public LocalFileKnowledgeRetrievalService(IWebHostEnvironment environment)
+    public LocalFileKnowledgeRetrievalService(IHostEnvironment environment)
     {
         _environment = environment;
     }
@@ -19,7 +22,7 @@ public class LocalFileKnowledgeRetrievalService : IKnowledgeRetrievalService
         {
             return new RetrievedKnowledge(
                 Content: string.Empty,
-                Sources: []
+                Sources: Array.Empty<string>()
             );
         }
 

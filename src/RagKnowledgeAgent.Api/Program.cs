@@ -1,5 +1,6 @@
-using RagKnowledgeAgent.Api.Models;
-using RagKnowledgeAgent.Api.Services;
+using RagKnowledgeAgent.Application.Models;
+using RagKnowledgeAgent.Application.Services;
+using RagKnowledgeAgent.Infrastructure.Retrieval;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
